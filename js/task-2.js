@@ -37,15 +37,31 @@ const images = [
   },
 ];
 
-/* Перевiрка функцii */
-const storage = new Storage(["Nanitoids", "Prolonger", "Antigravitator"]);
-console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
+const gallery = document.querySelector(".gallery");
+const fragment = document.createDocumentFragment();
 
-storage.addItem("Droid");
-console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
+function createImage(url, alt) {
+  const img = document.createElement("img");
+  img.src = url;
+  img.alt = alt;
+  img.classList.add("list-image");
+  img.loading = "lazy";
+  return img;
+}
 
-storage.removeItem("Prolonger");
-console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
+function createListItem(img) {
+  const listItem = document.createElement("li");
+  listItem.classList.add("list-item");
+  listItem.append(img);
+  return listItem;
+}
 
-storage.removeItem("Scaner");
-console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
+if (gallery) {
+  images.forEach(({ url, alt }) => {
+    const img = createImage(url, alt);
+    const listItem = createListItem(img);
+    fragment.append(listItem);
+  });
+
+  gallery.append(fragment);
+}
