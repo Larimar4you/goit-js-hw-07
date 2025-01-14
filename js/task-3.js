@@ -7,36 +7,13 @@
 
 `use strict`;
 
-class StringBuilder {
-  #value;
-
-  constructor(initialValue) {
-    this.#value = initialValue;
+const inputEl = document.querySelector("#name-input");
+const outputEl = document.querySelector("#name-output");
+inputEl.addEventListener("input", (event) => {
+  const userName = event.currentTarget.value.trim();
+  if (userName === "") {
+    outputEl.textContent = "Anonymous";
+  } else {
+    outputEl.textContent = userName;
   }
-
-  getValue() {
-    return this.#value;
-  }
-
-  padEnd(str) {
-    this.#value += str;
-  }
-
-  padStart(str) {
-    this.#value = str + this.#value;
-  }
-
-  padBoth(str) {
-    this.padStart(str);
-    this.padEnd(str);
-  }
-}
-/* Перевiрка функцii */
-const builder = new StringBuilder(".");
-console.log(builder.getValue()); // "."
-builder.padStart("^");
-console.log(builder.getValue()); // "^."
-builder.padEnd("^");
-console.log(builder.getValue()); // "^.^"
-builder.padBoth("=");
-console.log(builder.getValue()); // "=^.^="
+});
